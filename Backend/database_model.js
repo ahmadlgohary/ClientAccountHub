@@ -1,7 +1,7 @@
 // Import MongoDB
 const mongoose = require("mongoose");
 
-const transactionSchema = new mongoose.Schema({
+const transaction_schema = new mongoose.Schema({
   // e.g., "purchase", "redeem", "refund"
   transaction_type: {
     type: String,
@@ -31,7 +31,7 @@ const transactionSchema = new mongoose.Schema({
   },
 });
 
-const activitySchema = new mongoose.Schema({
+const activity_schema = new mongoose.Schema({
   // e.g., "update"
   activity_type: {
     type: String,
@@ -48,8 +48,8 @@ const activitySchema = new mongoose.Schema({
   },
 });
 
-const userSchema = new mongoose.Schema({
-  // User's email
+const user_schema = new mongoose.Schema({
+  // user's email
   email: {
     type: String,
     required: true,
@@ -68,18 +68,18 @@ const userSchema = new mongoose.Schema({
   // Map of transaction records by unique ID
   transaction_history: {
     type: Map,
-    of: transactionSchema,
+    of: transaction_schema,
     default: {},
   },
   // Array of user activities
   activity_log: {
-    type: [activitySchema],
+    type: [activity_schema],
     default: [],
   },
 });
 
 // Register the model
-const User = mongoose.model('User', userSchema);
+const user = mongoose.model('user', user_schema);
 
 // Export the model
-module.exports = { User, transactionSchema, activitySchema, userSchema };
+module.exports = { user, transaction_schema, activity_schema, user_schema };
