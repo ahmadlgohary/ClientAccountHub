@@ -1,43 +1,385 @@
-{
-    "email": "Group5@torontomu.ca",
-    "role": "primary_user",
-    "points_balance": 100,
-    "transaction_history": {
-        "abc123": {
-            "transaction_type": "purchase",
-            "transaction_date": "2024-05-05",
-            "transaction_cost": 500,
-            "productName": "AlphaBiz CRM Software",
-            "points_change": 50,
-            "description": "Purchased product XYZ"
+[
+    {
+        "email": "user1@example.com",
+        "role": "admin",
+        "points_balance": 250,
+        "transaction_history": {
+            "txn001": {
+                "transaction_type": "purchase",
+                "transaction_date": "2024-06-15",
+                "transaction_cost": 300,
+                "productName": "ProAnalytics Tool",
+                "points_change": 30,
+                "description": "Purchased ProAnalytics monthly subscription"
+            },
+            "txn002": {
+                "transaction_type": "redeem",
+                "transaction_date": "2024-06-20",
+                "transaction_cost": 150,
+                "productName": "Cloud Storage Upgrade",
+                "points_change": -15,
+                "description": "Redeemed points for Cloud Storage"
+            }
         },
-        "123abc": {
-            "transaction_type": "redeem",
-            "transaction_date": "2024-05-05",
-            "transaction_cost": 500,
-            "productName": "AlphaBiz CRM Software",
-            "points_change": -50,
-            "description": "Purchased product XYZ"
-        },
-        "refund_abc123": {
-            "transaction_type": "refund",
-            "transaction_date": "2024-05-05",
-            "transaction_cost": -500,
-            "productName": "AlphaBiz CRM Software",
-            "points_change": 50,
-            "description": "Refunded product XYZ"
-        }
+        "activity_log": [
+            {
+                "activity_type": "login",
+                "activity_field": "n/a",
+                "activity_date": "2024-06-25"
+            },
+            {
+                "activity_type": "update",
+                "activity_field": "phone_number",
+                "activity_date": "2024-06-22"
+            }
+        ]
     },
-    "activity_log": [
-        {
-            "activity_type": "update",
-            "activity_field": "name",
-            "activity_date": "2024-05-05"
+    {
+        "email": "user2@example.com",
+        "role": "customer",
+        "points_balance": 75,
+        "transaction_history": {
+            "txn101": {
+                "transaction_type": "purchase",
+                "transaction_date": "2024-05-18",
+                "transaction_cost": 100,
+                "productName": "TeamManager App",
+                "points_change": 10,
+                "description": "Purchased TeamManager yearly plan"
+            },
+            "txn102": {
+                "transaction_type": "refund",
+                "transaction_date": "2024-05-22",
+                "transaction_cost": -100,
+                "productName": "TeamManager App",
+                "points_change": -10,
+                "description": "Refund for TeamManager plan"
+            }
         },
-        {
-            "activity_type": "update",
-            "activity_field": "address",
-            "activity_date": "2024-05-05"
-        }
-    ]
-}
+        "activity_log": [
+            {
+                "activity_type": "register",
+                "activity_field": "n/a",
+                "activity_date": "2024-05-15"
+            },
+            {
+                "activity_type": "update",
+                "activity_field": "profile_picture",
+                "activity_date": "2024-05-20"
+            }
+        ]
+    },
+    {
+        "email": "user3@example.com",
+        "role": "primary_user",
+        "points_balance": 500,
+        "transaction_history": {
+            "txn201": {
+                "transaction_type": "purchase",
+                "transaction_date": "2024-04-10",
+                "transaction_cost": 700,
+                "productName": "Enterprise Suite",
+                "points_change": 70,
+                "description": "Purchased Enterprise Suite license"
+            }
+        },
+        "activity_log": [
+            {
+                "activity_type": "password_reset",
+                "activity_field": "n/a",
+                "activity_date": "2024-04-15"
+            },
+            {
+                "activity_type": "login",
+                "activity_field": "n/a",
+                "activity_date": "2024-04-20"
+            }
+        ]
+    },
+    {
+        "email": "user4@example.com",
+        "role": "secondary_user",
+        "points_balance": 150,
+        "transaction_history": {
+            "txn301": {
+                "transaction_type": "redeem",
+                "transaction_date": "2024-03-10",
+                "transaction_cost": 200,
+                "productName": "Marketing Tool Pro",
+                "points_change": -20,
+                "description": "Redeemed points for Marketing Tool Pro subscription"
+            }
+        },
+        "activity_log": [
+            {
+                "activity_type": "update",
+                "activity_field": "email",
+                "activity_date": "2024-03-15"
+            }
+        ]
+    },
+    {
+        "email": "user5@example.com",
+        "role": "customer",
+        "points_balance": 300,
+        "transaction_history": {
+            "trans100": {
+                "transaction_type": "purchase",
+                "transaction_date": "2024-07-12",
+                "transaction_cost": 450,
+                "productName": "DataSync Premium",
+                "points_change": 45,
+                "description": "Purchased annual plan for DataSync Premium"
+            },
+            "trans101": {
+                "transaction_type": "redeem",
+                "transaction_date": "2024-07-20",
+                "transaction_cost": 200,
+                "productName": "Gift Card",
+                "points_change": -20,
+                "description": "Redeemed points for a $20 gift card"
+            }
+        },
+        "activity_log": [
+            {
+                "activity_type": "update",
+                "activity_field": "password",
+                "activity_date": "2024-07-15"
+            },
+            {
+                "activity_type": "login",
+                "activity_field": "n/a",
+                "activity_date": "2024-07-22"
+            }
+        ]
+    },
+    {
+        "email": "user6@example.com",
+        "role": "secondary_user",
+        "points_balance": 50,
+        "transaction_history": {
+            "txn202": {
+                "transaction_type": "purchase",
+                "transaction_date": "2024-08-05",
+                "transaction_cost": 120,
+                "productName": "WebAnalytics Pro",
+                "points_change": 12,
+                "description": "Purchased a one-month subscription"
+            }
+        },
+        "activity_log": [
+            {
+                "activity_type": "register",
+                "activity_field": "n/a",
+                "activity_date": "2024-08-01"
+            },
+            {
+                "activity_type": "update",
+                "activity_field": "profile_picture",
+                "activity_date": "2024-08-03"
+            }
+        ]
+    },
+    {
+        "email": "user7@example.com",
+        "role": "admin",
+        "points_balance": 1000,
+        "transaction_history": {
+            "txn401": {
+                "transaction_type": "purchase",
+                "transaction_date": "2024-06-10",
+                "transaction_cost": 800,
+                "productName": "Business Suite Ultimate",
+                "points_change": 80,
+                "description": "Purchased Business Suite for corporate use"
+            },
+            "txn402": {
+                "transaction_type": "refund",
+                "transaction_date": "2024-06-12",
+                "transaction_cost": -800,
+                "productName": "Business Suite Ultimate",
+                "points_change": -80,
+                "description": "Refunded Business Suite purchase"
+            }
+        },
+        "activity_log": [
+            {
+                "activity_type": "update",
+                "activity_field": "address",
+                "activity_date": "2024-06-11"
+            },
+            {
+                "activity_type": "update",
+                "activity_field": "phone_number",
+                "activity_date": "2024-06-15"
+            }
+        ]
+    },
+    {
+        "email": "user8@example.com",
+        "role": "customer",
+        "points_balance": 120,
+        "transaction_history": {
+            "txn301": {
+                "transaction_type": "purchase",
+                "transaction_date": "2024-09-01",
+                "transaction_cost": 300,
+                "productName": "SoloPro Tools",
+                "points_change": 30,
+                "description": "Purchased SoloPro Tools package"
+            },
+            "txn302": {
+                "transaction_type": "redeem",
+                "transaction_date": "2024-09-05",
+                "transaction_cost": 100,
+                "productName": "E-Gift Card",
+                "points_change": -10,
+                "description": "Redeemed points for an E-Gift Card"
+            }
+        },
+        "activity_log": [
+            {
+                "activity_type": "login",
+                "activity_field": "n/a",
+                "activity_date": "2024-09-10"
+            },
+            {
+                "activity_type": "update",
+                "activity_field": "profile_picture",
+                "activity_date": "2024-09-12"
+            }
+        ]
+    },
+    {
+        "email": "user9@example.com",
+        "role": "customer",
+        "points_balance": 200,
+        "transaction_history": {
+            "txn001": {
+                "transaction_type": "purchase",
+                "transaction_date": "2024-10-10",
+                "transaction_cost": 500,
+                "productName": "EcomPro Subscription",
+                "points_change": 50,
+                "description": "Purchased EcomPro yearly subscription"
+            },
+            "txn002": {
+                "transaction_type": "redeem",
+                "transaction_date": "2024-10-15",
+                "transaction_cost": 200,
+                "productName": "Discount Voucher",
+                "points_change": -20,
+                "description": "Redeemed points for $20 discount voucher"
+            }
+        },
+        "activity_log": [
+            {
+                "activity_type": "update",
+                "activity_field": "email",
+                "activity_date": "2024-10-18"
+            },
+            {
+                "activity_type": "login",
+                "activity_field": "n/a",
+                "activity_date": "2024-10-20"
+            }
+        ]
+    },
+    {
+        "email": "user10@example.com",
+        "role": "primary_user",
+        "points_balance": 600,
+        "transaction_history": {
+            "txn101": {
+                "transaction_type": "purchase",
+                "transaction_date": "2024-07-05",
+                "transaction_cost": 900,
+                "productName": "ProjectManager Pro",
+                "points_change": 90,
+                "description": "Purchased ProjectManager Pro for team management"
+            }
+        },
+        "activity_log": [
+            {
+                "activity_type": "update",
+                "activity_field": "password",
+                "activity_date": "2024-07-10"
+            },
+            {
+                "activity_type": "update",
+                "activity_field": "phone_number",
+                "activity_date": "2024-07-12"
+            }
+        ]
+    },
+    {
+        "email": "user11@example.com",
+        "role": "customer",
+        "points_balance": 150,
+        "transaction_history": {
+            "txn201": {
+                "transaction_type": "purchase",
+                "transaction_date": "2024-08-20",
+                "transaction_cost": 250,
+                "productName": "DesignHub Premium",
+                "points_change": 25,
+                "description": "Purchased DesignHub Premium access"
+            },
+            "txn202": {
+                "transaction_type": "redeem",
+                "transaction_date": "2024-08-22",
+                "transaction_cost": 50,
+                "productName": "E-Gift Card",
+                "points_change": -5,
+                "description": "Redeemed points for $5 E-Gift Card"
+            }
+        },
+        "activity_log": [
+            {
+                "activity_type": "login",
+                "activity_field": "n/a",
+                "activity_date": "2024-08-25"
+            },
+            {
+                "activity_type": "update",
+                "activity_field": "address",
+                "activity_date": "2024-08-28"
+            }
+        ]
+    },
+    {
+        "email": "user12@example.com",
+        "role": "admin",
+        "points_balance": 800,
+        "transaction_history": {
+            "txn301": {
+                "transaction_type": "purchase",
+                "transaction_date": "2024-09-12",
+                "transaction_cost": 1200,
+                "productName": "Enterprise Suite Max",
+                "points_change": 120,
+                "description": "Purchased Enterprise Suite for business"
+            },
+            "txn302": {
+                "transaction_type": "refund",
+                "transaction_date": "2024-09-15",
+                "transaction_cost": -1200,
+                "productName": "Enterprise Suite Max",
+                "points_change": -120,
+                "description": "Refunded Enterprise Suite purchase"
+            }
+        },
+        "activity_log": [
+            {
+                "activity_type": "update",
+                "activity_field": "profile_picture",
+                "activity_date": "2024-09-18"
+            },
+            {
+                "activity_type": "update",
+                "activity_field": "email",
+                "activity_date": "2024-09-20"
+            }
+        ]
+    }
+]
