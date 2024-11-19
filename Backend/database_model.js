@@ -78,5 +78,8 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// Make a Model for items_collection DB
-mongoose.model("database_collection", userSchema);
+// Register the model
+const User = mongoose.model('User', userSchema);
+
+// Export the model
+module.exports = { User, transactionSchema, activitySchema, userSchema };
