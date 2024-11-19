@@ -1,43 +1,31 @@
-const fs = require('fs');
-var path = process.cwd();
-var buffer = fs.readFileSync(path + "/database_api.txt"); 
-const mongo_db_api = buffer.toString()
+const fs = require('fs');                       // Import fs 
+const cors = require("cors");                   // Import Cross Origin Resource Sharing.
+const express = require("express");             // Import Express
+const mongoose = require("mongoose");           // Import Mongoose
+const body_parser = require("body-parser");     // Import Body Parser
 
 
-// Import Express.JS
-const express = require("express");
 const app = express();
 
-// Import Mongoose for MongoDB
-const mongoose = require("mongoose");
-mongoose.connect(mongo_db_api);
-
-//Import database_model.js
-const { transaction_schema, activity_schema, user_schema, user } = require('./database_model');
-
-//Import Body Parser
-const body_parser = require("body-parser");
 app.use(body_parser.json());
 
-//Import Cross Origin Resource Sharing.
-const cors = require("cors");
-const cors_options = {
-    origin: "*",
-    credentials: true, // access-control-allow-credentials:true
-    optionSuccessStatus: 200,
-};
-
+// access-control-allow-credentials:true
+const cors_options = {origin: "*", credentials: true, optionSuccessStatus: 200};
 app.use(cors(cors_options));
 
+// Connect to mongo db
+const mongo_db_api = (fs.readFileSync(process.cwd() + "/database_api.txt")).toString()
+mongoose.connect(mongo_db_api);
+const { transaction_schema, activity_schema, user_schema, user } = require('./database_model'); // Import database_model.js
+
+
+
 //create host
-app.get("/", (request, response) => {
-    response.send("This is our main end point");
-});
+app.get("/", (request, response) => {response.send("This is our main end point")});
 
 //open express server
-app.listen(4545, () => {
-    console.log("Connected");
-});
+app.listen(4545, () => {console.log("Connected")});
+
 
 const user_model = mongoose.model('user', user_schema);
 
@@ -45,18 +33,19 @@ const user_model = mongoose.model('user', user_schema);
 app.get("/get_user_by_email/:email", async (request, response) => {
     try{
         // find the user by email in the database
-        const user = await user_model.findOne({"email": request.params.email})
+        const user_data = await user_model.findOne({"email": request.params.email})
 
         // check if the user exists or not, and if not return and error message
-        if (!user) {
+        if (!user_data) {
             return response.status(400).json({error: "User not found"})
         }
 
         // if the user does exist, respond with the user data
-        response.status(200).json(user);
+        response.status(200).json({message: "Successfully Found User Data", user: user_data});
+
     } catch (err) {
         console.error("Error fetching user:", err);
-        response.status(500).json({ error: "Failed to fetch user" });
+        response.status(500).json({error: "Failed to fetch user" });
     }
 });
 
@@ -66,12 +55,13 @@ app.delete("/delete_data/:email", async (request,response)=>{
         // find the user data by using the email as the key
         const user_data  = await user_model.findOneAndDelete({"email": request.params.email})
 
+        // check if the user exists or not, and if not return and error message
         if(!user_data){
             return response.status(404).json({message:"User not found"});
         }
         
         // Respond with the deleted user
-        response.status(200).json({message: "Item Successfully Removed", user: user_data});
+        response.status(200).json({message: "User Data Successfully Removed", user: user_data});
 
     }catch(err){
         console.error("Error deleting user data", err);
@@ -82,7 +72,8 @@ app.delete("/delete_data/:email", async (request,response)=>{
 // Adding a new user 
 app.post("/add_user", async(request,response)=>{
     try{
-        const user = await user_model.create({
+        // create a new user with the given email and role
+        const user_data = await user_model.create({
             "email": request["body"]["email"],
              "role":request["body"]["role"],
              "points_balance":0,
@@ -90,41 +81,38 @@ app.post("/add_user", async(request,response)=>{
              "activity_log":[],
         })
 
-        await user.save()
-        response.status(200).json({
-            message:"User created successfully}",
-            user:user.email
-    });
+        // update the database 
+        await user_data.save()
+
+        // respond with the new user email
+        response.status(200).json({message:"User created successfully}",user:user_data.email});
+    
     }catch(err){
         console.error(err);
-        response.status(500).json({
-            message:"Error occured while creating user",
-            error:err.message
-        })
+        response.status(500).json({message:"Error occurred while creating user", error:err.message})
     }
 })
 
 //changing the role
 app.put("/change_role", async(request,response)=>{
     try{
-        const user = await user_model.findOne({"email": request["body"]["email"]})
-        if(!user){
-            return response.status(404).json({
-                message:"User not found"
-            });
+        // get user by email
+        const user_data = await user_model.findOne({"email": request["body"]["email"]})
+        
+        // check if the user exists or not, and if not return and error message
+        if(!user_data){
+            return response.status(404).json({message:"User not found"});
         }
-        user.role=request["body"]["role"]
-        await user.save()
-        response.status(200).json({
-            message:"User's role changed successfully",
-            user:user.email
-    });
+
+        // change the role and update the database
+        user_data.role=request["body"]["role"]
+        await user_data.save()
+
+        // respond with the new user data
+        response.status(200).json({message:"User's role changed successfully", user: user_data});
     }catch(err){
         console.error(err);
-        response.status(500).json({
-            message:"could not change role",
-            error:err.message
-        });
+    response.status(500).json({message:"could not change role", error:err.message});
     }
 })
 
@@ -132,45 +120,51 @@ app.put("/change_role", async(request,response)=>{
 //changing the email
 app.put("/change_email", async(request,response)=>{
     try{
-        const user = await user_model.findOne({"email": request["body"]["email"]})
-        if(!user){
-            return response.status(404).json({
-                message:"User not found"
-            });
+
+        // get user by email
+        const user_data = await user_model.findOne({"email": request["body"]["email"]})
+
+        // check if the user exists or not, and if not return and error message
+        if(!user_data){
+            return response.status(404).json({message:"User not found"});
         }
-        user.email=request["body"]["new_email"]
-        await user.save()
-        response.status(200).json({
-            message:"User's email changed successfully",
-            user:user.email
-    });
+
+        // change the email and update the database
+        user_data.email=request["body"]["new_email"]
+        await user_data.save()
+
+        // respond with the new user data
+        response.status(200).json({message:"User's email changed successfully",user:user_data});
+
     }catch(err){
         console.error(err);
-        response.status(500).json({
-            message:"could not change role",
-            error:err.message
-        });
+        response.status(500).json({message:"could not change role", error:err.message});
     }
 })
 
 app.put("/update_activity_log", async(request, response)=>{
     try{
+
+        // get user by email
         let user_data = await user_model.findOne({"email": request['body']['email']})
-        
+
+        // check if the user exists or not, and if not return and error message
         if(!user_data){
             return response.status(404).json({message:"User not found"});
         }
         
+        // create a hashmap for the activity data
         const new_activity = {
                 "activity_type":    request['body']['activity_type'],
                 "activity_field":   request['body']['activity_field'],
                 "activity_date":    request['body']['activity_date']
             }
         
+        // push to the activity_log list and update the database
         user_data['activity_log'].push(new_activity)
-
         await user_data.save()
 
+        // respond with the new user data
         response.status(200).json({message:"Activity log successfully updated", user_data:user_data})
 
     }catch(err){
@@ -178,3 +172,46 @@ app.put("/update_activity_log", async(request, response)=>{
         response.status(500).json({message:"Error occurred while updating user's activity log", error: err.message})
     }
 })
+
+
+// Update a user's transactions
+app.put("/update_transactions", async (request, response) => {
+    try {
+        // get user through email
+        const user_data = await user_model.findOne({ "email": request.body.email });
+
+        if (!user_data) {
+            return response.status(404).json({ message: "User not found" });
+        }
+
+        // get transaction id
+        const transaction_id = request.body.transaction_id;
+
+        // map all data related to the transaction
+        const transaction_data = {
+            transaction_type: request.body.transaction_type,
+            transaction_date: request.body.transaction_date,
+            transaction_cost: request.body.transaction_cost,
+            productName: request.body.productName,
+            points_change: request.body.points_change,
+            description: request.body.description || "",
+        };
+
+        // update or add the transaction in the user's transaction history
+        user_data.transaction_history.set(transaction_id, transaction_data);
+
+        // save the changes to the user document
+        await user_data.save();
+
+        response.status(200).json({
+            message: "Transaction history updated successfully",
+            transaction_history: user_data.transaction_history,
+        });
+    } catch (err) {
+        console.error("Error updating transaction history:", err);
+        response.status(500).json({
+            message: "Error occurred while updating transaction history",
+            error: err.message,
+        });
+    }
+});
