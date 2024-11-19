@@ -31,8 +31,8 @@ const cors_options = {
 app.use(cors(cors_options));
 
 //create host
-app.get("/", (req, res) => {
-    res.send("This is our main end point");
+app.get("/", (request, response) => {
+    response.send("This is our main end point");
 });
 
 //open express server
@@ -43,7 +43,7 @@ app.listen(4545, () => {
 
 const user_model = mongoose.model('user', user_schema);
 
-app.post("/create_new_data", async (req, res) => {
+app.post("/create_new_data", async (request, response) => {
     const sample_data = {
       "email": "Group5@torontomu.ca",
       "role": "primary_user",
@@ -89,15 +89,32 @@ app.post("/create_new_data", async (req, res) => {
   };
 
   try {
+    
     // Save the sample data to MongoDB using the User model
     const saved_user = await (new user_model(sample_data)).save();
+    
     // Respond with the created user
-    res.status(201).json({
-      message: "Sample data created successfully",
-      user: saved_user,
-    });
+    response.status(201).json({message: "Sample data created successfully", user: saved_user});
+
   } catch (err) {
     console.error("Error creating sample data:", err);
-    res.status(500).json({ error: "Failed to create sample data" });
+    response.status(500).json({ error: "Failed to create sample data" });
   }
 });
+
+
+
+// Delete user data
+app.delete("/delete_data/:email", async (request,response)=>{
+    try{
+        // find the user data by using the email as the key
+        const user_data  = await user_model.findOneAndDelete({"email": request.params.email})
+        
+        // Respond with the deleted user
+        response.status(201).json({message: "Item Successfully Removed", user: user_data});
+
+    }catch(err){
+        console.error("Error deleting user data", err);
+        response.status(500).json({ error: "Failed to delete user data" });
+    }
+})
