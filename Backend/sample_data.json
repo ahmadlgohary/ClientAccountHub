@@ -1,0 +1,43 @@
+{
+    "email": "Group5@torontomu.ca",
+    "role": "primary_user",
+    "points_balance": 100,
+    "transaction_history": {
+        "abc123": {
+            "transaction_type": "purchase",
+            "transaction_date": "2024-05-05",
+            "transaction_cost": 500,
+            "productName": "AlphaBiz CRM Software",
+            "points_change": 50,
+            "description": "Purchased product XYZ"
+        },
+        "123abc": {
+            "transaction_type": "redeem",
+            "transaction_date": "2024-05-05",
+            "transaction_cost": 500,
+            "productName": "AlphaBiz CRM Software",
+            "points_change": -50,
+            "description": "Purchased product XYZ"
+        },
+        "refund_abc123": {
+            "transaction_type": "refund",
+            "transaction_date": "2024-05-05",
+            "transaction_cost": -500,
+            "productName": "AlphaBiz CRM Software",
+            "points_change": 50,
+            "description": "Refunded product XYZ"
+        }
+    },
+    "activity_log": [
+        {
+            "activity_type": "update",
+            "activity_field": "name",
+            "activity_date": "2024-05-05"
+        },
+        {
+            "activity_type": "update",
+            "activity_field": "address",
+            "activity_date": "2024-05-05"
+        }
+    ]
+}
