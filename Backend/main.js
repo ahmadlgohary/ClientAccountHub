@@ -29,45 +29,8 @@ app.listen(4545, () => {console.log("Connected")});
 
 const user_model = mongoose.model('user', user_schema);
 
-// Get user by email
-app.get("/get_user_by_email/:email", async (request, response) => {
-    try{
-        // find the user by email in the database
-        const user_data = await user_model.findOne({"email": request.params.email})
 
-        // check if the user exists or not, and if not return and error message
-        if (!user_data) {
-            return response.status(400).json({error: "User not found"})
-        }
-
-        // if the user does exist, respond with the user data
-        response.status(200).json({message: "Successfully Found User Data", user: user_data});
-
-    } catch (err) {
-        console.error("Error fetching user:", err);
-        response.status(500).json({error: "Failed to fetch user" });
-    }
-});
-
-// Delete user data
-app.delete("/delete_data/:email", async (request,response)=>{
-    try{
-        // find the user data by using the email as the key
-        const user_data  = await user_model.findOneAndDelete({"email": request.params.email})
-
-        // check if the user exists or not, and if not return and error message
-        if(!user_data){
-            return response.status(404).json({message:"User not found"});
-        }
-        
-        // Respond with the deleted user
-        response.status(200).json({message: "User Data Successfully Removed", user: user_data});
-
-    }catch(err){
-        console.error("Error deleting user data", err);
-        response.status(500).json({ error: "Failed to delete user data" });
-    }
-})
+// CREATE ENDPOINT
 
 // Adding a new user 
 app.post("/add_user", async(request,response)=>{
@@ -92,6 +55,53 @@ app.post("/add_user", async(request,response)=>{
         response.status(500).json({message:"Error occurred while creating user", error:err.message})
     }
 })
+
+
+// READ ENDPOINT
+
+// Get user by email
+app.get("/get_user_by_email/:email", async (request, response) => {
+    try{
+        // find the user by email in the database
+        const user_data = await user_model.findOne({"email": request.params.email})
+
+        // check if the user exists or not, and if not return and error message
+        if (!user_data) {
+            return response.status(400).json({error: "User not found"})
+        }
+
+        // if the user does exist, respond with the user data
+        response.status(200).json({message: "Successfully Found User Data", user: user_data});
+
+    } catch (err) {
+        console.error("Error fetching user:", err);
+        response.status(500).json({error: "Failed to fetch user" });
+    }
+});
+
+// DELETE ENDPOINT
+
+// Delete user data
+app.delete("/delete_data/:email", async (request,response)=>{
+    try{
+        // find the user data by using the email as the key
+        const user_data  = await user_model.findOneAndDelete({"email": request.params.email})
+
+        // check if the user exists or not, and if not return and error message
+        if(!user_data){
+            return response.status(404).json({message:"User not found"});
+        }
+        
+        // Respond with the deleted user
+        response.status(200).json({message: "User Data Successfully Removed", user: user_data});
+
+    }catch(err){
+        console.error("Error deleting user data", err);
+        response.status(500).json({ error: "Failed to delete user data" });
+    }
+})
+
+// UPDATE ENDPOINTS
 
 //changing the role
 app.put("/change_role", async(request,response)=>{
