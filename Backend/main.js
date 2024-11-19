@@ -148,3 +148,25 @@ app.put("/change_email", async(request,response)=>{
         });
     }
 })
+
+app.put("/update_activity_log", async(request, response)=>{
+    try{
+        let user_data = await user_model.findOne({"email": request['body']['email']})
+        
+        const new_activity = {
+                "activity_type":    request['body']['activity_type'],
+                "activity_field":   request['body']['activity_field'],
+                "activity_date":    request['body']['activity_date']
+            }
+        
+        user_data['activity_log'].push(new_activity)
+
+        await user_data.save()
+
+        response.status(201).json({message:"Activity log successfully updated", user_data:user_data})
+
+    }catch(err){
+        console.error(err);
+        response.status(500).json({message:"Error occurred while updating user", error: err.message})
+    }
+})
