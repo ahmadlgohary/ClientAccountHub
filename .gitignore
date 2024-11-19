@@ -3,3 +3,4 @@ Backend/username_and_password.txt
 /Backend/node_modules
 Backend/database_api.txt
 /Backend/pnpm-lock.yaml
+Backend/test_api.py
