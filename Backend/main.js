@@ -74,3 +74,28 @@ app.delete("/delete_data/:email", async (request,response)=>{
         response.status(500).json({ error: "Failed to delete user data" });
     }
 })
+
+// Adding a new user 
+app.post("/add_user", async(request,response)=>{
+    try{
+        const user = await user_model.create({
+            "email": request["body"]["email"],
+             "role":request["body"]["role"],
+             "points_balance":0,
+             "transaction_history":{},
+             "activity_log":[],
+        })
+
+        await user.save()
+        response.status(201).json({
+            message:"User created successfully}",
+            user:user.email
+    });
+    }catch(err){
+        console.error(err);
+        response.status(500).json({
+            message:"Error occured while creating user",
+            error:err.message
+        })
+    }
+})
