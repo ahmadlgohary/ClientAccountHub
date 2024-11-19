@@ -65,9 +65,13 @@ app.delete("/delete_data/:email", async (request,response)=>{
     try{
         // find the user data by using the email as the key
         const user_data  = await user_model.findOneAndDelete({"email": request.params.email})
+
+        if(!user_data){
+            return response.status(404).json({message:"User not found"});
+        }
         
         // Respond with the deleted user
-        response.status(201).json({message: "Item Successfully Removed", user: user_data});
+        response.status(200).json({message: "Item Successfully Removed", user: user_data});
 
     }catch(err){
         console.error("Error deleting user data", err);
@@ -87,7 +91,7 @@ app.post("/add_user", async(request,response)=>{
         })
 
         await user.save()
-        response.status(201).json({
+        response.status(200).json({
             message:"User created successfully}",
             user:user.email
     });
@@ -111,7 +115,7 @@ app.put("/change_role", async(request,response)=>{
         }
         user.role=request["body"]["role"]
         await user.save()
-        response.status(201).json({
+        response.status(200).json({
             message:"User's role changed successfully",
             user:user.email
     });
@@ -136,7 +140,7 @@ app.put("/change_email", async(request,response)=>{
         }
         user.email=request["body"]["new_email"]
         await user.save()
-        response.status(201).json({
+        response.status(200).json({
             message:"User's email changed successfully",
             user:user.email
     });
@@ -153,6 +157,10 @@ app.put("/update_activity_log", async(request, response)=>{
     try{
         let user_data = await user_model.findOne({"email": request['body']['email']})
         
+        if(!user_data){
+            return response.status(404).json({message:"User not found"});
+        }
+        
         const new_activity = {
                 "activity_type":    request['body']['activity_type'],
                 "activity_field":   request['body']['activity_field'],
@@ -163,10 +171,10 @@ app.put("/update_activity_log", async(request, response)=>{
 
         await user_data.save()
 
-        response.status(201).json({message:"Activity log successfully updated", user_data:user_data})
+        response.status(200).json({message:"Activity log successfully updated", user_data:user_data})
 
     }catch(err){
         console.error(err);
-        response.status(500).json({message:"Error occurred while updating user", error: err.message})
+        response.status(500).json({message:"Error occurred while updating user's activity log", error: err.message})
     }
 })
