@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 3rem;
+  background-color: #333;
+  color: #fff;
+  font-size: 1.2rem;
+  height: 4rem;
+  z-index: 1000;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+header span a {
+  color: #fff;
+}
+
+header span a:hover {
+  color: #ccc;
+}
+
+header nav a {
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.2s ease-in-out;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+}
