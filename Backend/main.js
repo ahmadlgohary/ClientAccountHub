@@ -13,7 +13,7 @@ const mongoose = require("mongoose");
 mongoose.connect(mongo_db_api);
 
 //Import database_model.js
-const { transaction_schema, activity_schema, user_schema } = require('./database_model');
+const { transaction_schema, activity_schema, user_schema, user } = require('./database_model');
 
 //Import Body Parser
 const body_parser = require("body-parser");
@@ -97,5 +97,54 @@ app.post("/add_user", async(request,response)=>{
             message:"Error occured while creating user",
             error:err.message
         })
+    }
+})
+
+//changing the role
+app.put("/change_role", async(request,response)=>{
+    try{
+        const user = await user_model.findOne({"email": request["body"]["email"]})
+        if(!user){
+            return response.status(404).json({
+                message:"User not found"
+            });
+        }
+        user.role=request["body"]["role"]
+        await user.save()
+        response.status(201).json({
+            message:"User's role changed successfully",
+            user:user.email
+    });
+    }catch(err){
+        console.error(err);
+        response.status(500).json({
+            message:"could not change role",
+            error:err.message
+        });
+    }
+})
+
+
+//changing the email
+app.put("/change_email", async(request,response)=>{
+    try{
+        const user = await user_model.findOne({"email": request["body"]["email"]})
+        if(!user){
+            return response.status(404).json({
+                message:"User not found"
+            });
+        }
+        user.email=request["body"]["new_email"]
+        await user.save()
+        response.status(201).json({
+            message:"User's email changed successfully",
+            user:user.email
+    });
+    }catch(err){
+        console.error(err);
+        response.status(500).json({
+            message:"could not change role",
+            error:err.message
+        });
     }
 })
