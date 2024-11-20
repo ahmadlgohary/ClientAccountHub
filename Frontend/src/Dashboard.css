@@ -36,7 +36,9 @@ h1 {
 /* Tablet */
 @media (max-width: 768px) {
     .transactionCard {
+        height: 600px;
         width: 80%;
+        text-align: center;
     }
 
     .tableHeader {
@@ -51,6 +53,11 @@ h1 {
 
     .bottomCard .card {
         margin-bottom: 20px;
+    }
+
+
+    .tableHeader th {
+        display: block;
     }
 }
 
