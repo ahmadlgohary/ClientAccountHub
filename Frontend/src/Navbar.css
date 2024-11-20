@@ -27,6 +27,8 @@ nav ul {
   padding: 0;
   gap: 1.25rem;
   text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 header span a {
@@ -87,6 +89,8 @@ button {
     flex-direction: column;
     gap: 10px;
     padding: 10px;
+    width: 100%;
+    text-align: center;
   }
 }
 
