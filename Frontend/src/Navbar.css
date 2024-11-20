@@ -43,10 +43,56 @@ header nav a {
   transition: color 0.2s ease-in-out;
 }
 
+button {
+  background: none;
+  border: none;
+  outline: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 24px;
+  display: none;
+}
+
+.menu {
+  display: flex;
+}
+
 /* Tablet */
 @media (max-width: 768px) {
+  button {
+    display: block;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    z-index: 1000;
+  }
+  .menu_open {
+    display: flex;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    z-index: 1000;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
 }
 
 /* Mobile */
-@media (max-width: 480px) {
-}
+/* @media (max-width: 480px) {
+  button {
+    display: block;
+  }
+} */
