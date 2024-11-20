@@ -1,9 +1,8 @@
-const fs = require('fs');                       // Import fs 
 const cors = require("cors");                   // Import Cross Origin Resource Sharing.
 const express = require("express");             // Import Express
 const mongoose = require("mongoose");           // Import Mongoose
 const body_parser = require("body-parser");     // Import Body Parser
-
+require('dotenv').config();                     // Import environment variables
 
 const app = express();
 
@@ -14,17 +13,17 @@ const cors_options = {origin: "*", credentials: true, optionSuccessStatus: 200};
 app.use(cors(cors_options));
 
 // Connect to mongo db
-const mongo_db_api = (fs.readFileSync(process.cwd() + "/database_api.txt")).toString()
+const mongo_db_api = process.env.MONGO_DB_API
 mongoose.connect(mongo_db_api);
 const { transaction_schema, activity_schema, user_schema, user } = require('./database_model'); // Import database_model.js
 
-
+const port_name = process.env.PORT || 4545
 
 //create host
 app.get("/", (request, response) => {response.send("This is our main end point")});
 
 //open express server
-app.listen(4545, () => {console.log("Connected")});
+app.listen(port_name, () => {console.log("Connected")});
 
 
 const user_model = mongoose.model('user', user_schema);
