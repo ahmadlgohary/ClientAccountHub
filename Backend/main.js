@@ -206,6 +206,11 @@ app.put("/update_transactions", async (request, response) => {
             description: request.body.description || "",
         };
 
+        if(transaction_id in user_data.transaction_history.toJSON()){
+            response.status(500).json({message: "Error occurred while updating transaction history",error: `A transaction with this ID ${transaction_id} Already exists`});
+            return
+        }
+        
         // update or add the transaction in the user's transaction history
         user_data.transaction_history.set(transaction_id, transaction_data);
 
@@ -214,16 +219,10 @@ app.put("/update_transactions", async (request, response) => {
         // save the changes to the user document
         await user_data.save();
 
-        response.status(200).json({
-            message: "Transaction history updated successfully",
-            transaction_history: user_data.transaction_history,
-        });
+        response.status(200).json({message: "Transaction history updated successfully",transaction_history: user_data.transaction_history,});
     } catch (err) {
         console.error("Error updating transaction history:", err);
-        response.status(500).json({
-            message: "Error occurred while updating transaction history",
-            error: err.message,
-        });
+        response.status(500).json({message: "Error occurred while updating transaction history",error: err.message,});
     }
 });
 
