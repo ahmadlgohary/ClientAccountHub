@@ -1,5 +1,6 @@
 import "./Navbar.css";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -11,7 +12,7 @@ export default function Navbar() {
     <>
       <header>
         <span>
-          <a href="#">BizPoints</a>
+          <Link to="/" ><a href="#">BizPoints</a></Link>
         </span>
         <button className="hamburger" onClick={toggleMenu} aria-label="Toggle menu">
           &#9776;
@@ -19,10 +20,10 @@ export default function Navbar() {
         <nav className={menuOpen ? "menu_open" : "menu"}>
           <ul>
             <li>
-              <a href="#">Dashboard</a>
+              <Link to="/"><a href="#">Dashboard</a></Link>
             </li>
             <li>
-              <a href="#">Profile</a>
+              <Link to="/profile"><a href="#">Profile</a></Link>
             </li>
           </ul>
         </nav>

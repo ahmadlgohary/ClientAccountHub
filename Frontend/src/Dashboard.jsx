@@ -1,11 +1,9 @@
 import React from "react";
 import "./Dashboard.css"
-import Navbar from "./Navbar";
 
 export default function Dashboard({ }) {
     return (
         <>
-            <Navbar />  
             <h1>Account Dashboard</h1>
             <div className="dashboard">
                 <div className="transactionCard">
