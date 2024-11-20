@@ -224,3 +224,7 @@ app.put("/update_transactions", async (request, response) => {
         });
     }
 });
+
+
+// READ ME ENDPOINT
+app.get("/readme",(request, response)=>{response.sendFile(__dirname+"/readme.html")})   

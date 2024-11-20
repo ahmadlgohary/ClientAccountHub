@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>README.md</title>
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+</head>
+
+<style>
+	body {
+		font-family: Arial, sans-serif;
+		line-height: 1.6;
+		margin: 0;
+		padding: 0;
+		background-color: #f9f9f9;
+		color: #333;
+	}
+
+	header {
+		background: #0078d7;
+		color: #fff;
+		padding: 20px;
+		text-align: center;
+	}
+
+	main {
+		padding: 20px;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	section {
+		margin-bottom: 20px;
+	}
+
+	h1,
+	h2,
+	h3 {
+		color: #0078d7;
+	}
+
+	table {
+		width: 1000px;
+		border-collapse: collapse;
+		margin: 20px 0;
+		background: #fff;
+		font-size: 1rem;
+	}
+
+	table th,
+	table td {
+		border: 1px solid #ddd;
+		padding: 10px;
+		text-align: left;
+	}
+
+	table th {
+		background-color: #0078d7;
+		color: #fff;
+	}
+
+	table tr:nth-child(even) {
+		background-color: #f2f2f2;
+	}
+
+	tr:hover td {
+		background-color: #dff0fa;
+		transition: background-color 0.3s ease;
+	}
+
+	.contributors ul {
+		list-style-type: none;
+		padding: 0;
+	}
+
+	.contributors ul li {
+		background: #fff;
+		padding: 10px;
+		margin: 5px 0;
+		border: 1px solid #ddd;
+	}
+
+	.code {
+		background: #f4f4f4;
+		padding: 10px;
+		border-left: 5px solid #0078d7;
+		font-family: monospace;
+		overflow-x: auto;
+	}
+
+	/* Responsive Styles */
+	@media screen and (max-width: 768px) {
+		main {
+			padding: 10px;
+		}
+
+		table {
+			font-size: 0.9rem;
+		}
+
+		table th,
+		table td {
+			padding: 8px;
+		}
+
+		table th {
+			font-size: 1rem;
+		}
+
+		.contributors ul li {
+			padding: 8px;
+			font-size: 0.9rem;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		h1 {
+			font-size: 1.5rem;
+		}
+
+		h2 {
+			font-size: 1.25rem;
+		}
+
+		h3 {
+			font-size: 1.1rem;
+		}
+
+		table {
+			display: block;
+			overflow-x: auto;
+		}
+
+		table th,
+		table td {
+			font-size: 0.85rem;
+			white-space: nowrap;
+		}
+
+		.contributors ul li {
+			font-size: 0.85rem;
+		}
+	}
+	.center {
+		margin-left: auto;
+		margin-right: auto;
+	  }
+</style>
+
+<body>
+	<h1 id="user-profile--account-management">User Profile &amp; Account Management</h1>
+	<h2 id="project-overview">Project Overview</h2>
+	<p>This project is a comprehensive User Profile &amp; Account Management system designed to streamline user
+		interactions and provide a seamless experience. It incorporates features for managing user profiles, tracking
+		rewards, and maintaining an up-to-date account dashboard.</p>
+	<h2 id="features">Features</h2>
+	<h3 id="1-profile-management">1. Profile Management</h3>
+	<ul>
+		<li>Update business and personal information.</li>
+		<li>Track reward points and redemption history.</li>
+	</ul>
+	<h3 id="2-account-dashboard">2. Account Dashboard</h3>
+	<ul>
+		<li>View point balances, transaction history, and activity logs.</li>
+		<li>Access all relevant account information in one place.</li>
+	</ul>
+	<h3 id="3-purchase-history">3. Purchase History</h3>
+	<ul>
+		<li>Maintain a detailed log of all purchases made.</li>
+		<li>Automatically update loyalty points based on purchases.</li>
+	</ul>
+	<h2 id="technologies-used">Technologies Used</h2>
+	<ul>
+		<li><strong>Frontend:</strong> React.js</li>
+		<li><strong>Backend:</strong> Node.js/Express.</li>
+		<li><strong>Database:</strong> MongoDB.</li>
+		<li><strong>Version Control:</strong> Git/GitHub.</li>
+	</ul>
+	<h2 id="usage">Usage</h2>
+	<ul>
+		<li>Navigate to the main dashboard to view account details and recent activity.</li>
+		<li>Update profile information and track reward points under the Profile section.</li>
+		<li>Review purchase history to monitor past transactions and rewards earned.</li>
+	</ul>
+	<h2 id="api-endpoints">API Endpoints</h2>
+	<table class="center">
+		<thead>
+			<tr>
+				<th><strong>Endpoint</strong></th>
+				<th><strong>Request</strong></th>
+				<th><strong>Response</strong></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>GET /get_user_by_email/:email</code></td>
+				<td><strong>Params:</strong> <code>email</code> <br> Retrieves the user by their email address.</td>
+				<td><strong>Success (200):</strong> <code>{ ...user data... }</code> <br> <strong>Error (400):</strong>
+					<code>{ &quot;error&quot;: &quot;User not found&quot; }</code> <br> <strong>Error (500):</strong>
+					<code>{ &quot;error&quot;: &quot;Failed to fetch user&quot; }</code></td>
+			</tr>
+			<tr>
+				<td><code>POST /add_user/:email</code></td>
+				<td><strong>Body:</strong> <code>{ &quot;role&quot;: &quot;user&quot; }</code> <br>
+					<strong>Params:</strong> <code>email</code> <br> Creates a new user with <code>email</code>,
+					<code>role</code>, <code>point_balance: 0</code>, <code>transaction_history: {}</code>, and
+					<code>activity_log: []</code>.</td>
+				<td><strong>Success (200):</strong>
+					<code>{ &quot;message&quot;: &quot;User created successfully&quot;, &quot;user&quot;: { &quot;email&quot;: &quot;string&quot;, &quot;role&quot;: &quot;string&quot;, &quot;point_balance&quot;: 0 } }</code>
+					<br> <strong>Error (500):</strong>
+					<code>{ &quot;message&quot;: &quot;Error occurred while creating user&quot;, &quot;error&quot;: &quot;Error message&quot; }</code>
+				</td>
+			</tr>
+			<tr>
+				<td><code>PUT /change_role</code></td>
+				<td><strong>Body:</strong>
+					<code>{ &quot;email&quot;: &quot;string&quot;, &quot;role&quot;: &quot;string&quot; }</code> <br>
+					Updates the <code>role</code> of an existing user identified by <code>email</code>.</td>
+				<td><strong>Success (200):</strong>
+					<code>{ &quot;message&quot;: &quot;User's role changed successfully&quot;, &quot;email&quot;: &quot;string&quot; }</code>
+					<br> <strong>Error (404):</strong> <code>{ &quot;message&quot;: &quot;User not found&quot; }</code>
+					<br> <strong>Error (500):</strong>
+					<code>{ &quot;message&quot;: &quot;Could not change role&quot;, &quot;error&quot;: &quot;Error message&quot; }</code>
+				</td>
+			</tr>
+			<tr>
+				<td><code>PUT /change_email</code></td>
+				<td><strong>Body:</strong>
+					<code>{ &quot;current_email&quot;: &quot;string&quot;, &quot;new_email&quot;: &quot;string&quot; }</code>
+					<br> Updates the <code>email</code> of an existing user.</td>
+				<td><strong>Success (200):</strong>
+					<code>{ &quot;message&quot;: &quot;User's email changed successfully&quot;, &quot;new_email&quot;: &quot;string&quot; }</code>
+					<br> <strong>Error (404):</strong> <code>{ &quot;message&quot;: &quot;User not found&quot; }</code>
+					<br> <strong>Error (500):</strong>
+					<code>{ &quot;message&quot;: &quot;Could not change email&quot;, &quot;error&quot;: &quot;Error message&quot; }</code>
+				</td>
+			</tr>
+			<tr>
+				<td><code>PUT /update_activity_log</code></td>
+				<td><strong>Body:</strong><code>{  &quot;email&quot;: some_email, &quot;activity_type&quot;: some_activity_type , &quot;activity_field&quot;: some_activity_field, &quot;activity_date&quot;: some_activity_date}</code>
+					<br></td>
+				<td><strong>Status 200</strong>:
+					<code>{ message: &quot;Activity log successfully updated&quot;, user_data: { ...updated user data... } }</code>
+					<br><strong>Status 404</strong>: <code>{ message: &quot;User not found&quot; }</code> <br>
+					<strong>Status 500</strong>:
+					<code>{ message: &quot;Error occurred while updating user's activity log&quot;, error: &quot;Detailed error message&quot; }</code>
+				</td>
+			</tr>
+			<tr>
+				<td><code>PUT /update_transactions</code></td>
+				<td><strong>Body:</strong>
+					<code>{ &quot;email&quot;: &quot;string&quot;, &quot;transaction_id&quot;: &quot;string&quot;, &quot;transaction_type&quot;: &quot;string&quot;, &quot;transaction_date&quot;: &quot;ISODateString&quot;, &quot;transaction_cost&quot;: number, &quot;productName&quot;: &quot;string&quot;, &quot;points_change&quot;: number, &quot;description&quot;: &quot;string&quot; }</code>
+					<br> Updates or adds a transaction to the user's transaction history.</td>
+				<td><strong>Success (200):</strong>
+					<code>{ &quot;message&quot;: &quot;Transaction history updated successfully&quot;, &quot;transaction_history&quot;: { ...updated transactions... } }</code>
+					<br> <strong>Error (404):</strong> <code>{ &quot;message&quot;: &quot;User not found&quot; }</code>
+					<br> <strong>Error (500):</strong>
+					<code>{ &quot;message&quot;: &quot;Error occurred while updating transaction history&quot;, &quot;error&quot;: &quot;Error message&quot; }</code>
+				</td>
+			</tr>
+			<tr>
+				<td><code>DELETE /delete_user_by_email/:email</code></td>
+				<td><strong>Params:</strong> <code>email</code> <br> Deletes the user's data entry in the database</td>
+				<td><strong>Success (200):</strong>
+					<code>{message: &quot;Item Successfully Removed&quot;, user: the_deleted_user_data}</code> <br>
+					<strong>Error (404):</strong> <code>{ &quot;message&quot;: &quot;User not found&quot; }</code> <br>
+					<strong>Error (500):</strong>
+					<code>{ &quot;message&quot;: &quot;Error occurred while updating user's activity log&quot;, &quot;error&quot;: &quot;some error message&quot; }</code>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<h2 id="contributors">Contributors</h2>
+	<ul>
+		<li><strong>[Jaedon Smith]</strong> Frontend developer</li>
+		<li><strong>[Zaid Khan]</strong> Frontend developer</li>
+		<li><strong>[Ayman Mohammad]</strong> FullStack developer</li>
+		<li><strong>[Parva Thakkar]</strong> Backend developer</li>
+		<li><strong>[Ahmad El-Gohary]</strong> Project Manger/Backend developer</li>
+	</ul>
+
+</body>
+
+</html>
