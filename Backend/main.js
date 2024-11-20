@@ -81,7 +81,7 @@ app.get("/get_user_by_email/:email", async (request, response) => {
 // DELETE ENDPOINT
 
 // Delete user data
-app.delete("/delete_data/:email", async (request,response)=>{
+app.delete("/delete_user_by_email/:email", async (request,response)=>{
     try{
         // find the user data by using the email as the key
         const user_data  = await user_model.findOneAndDelete({"email": request.params.email})
