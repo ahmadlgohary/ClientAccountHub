@@ -10,9 +10,11 @@ export default function Navbar() {
   };
   return (
     <>
-      <header>
+      <header className="navbar">
         <span>
-          <Link to="/" ><a href="#">BizPoints</a></Link>
+          <Link className="link" to="/">
+            BizPoints
+          </Link>
         </span>
         <button className="hamburger" onClick={toggleMenu} aria-label="Toggle menu">
           &#9776;
@@ -20,10 +22,14 @@ export default function Navbar() {
         <nav className={menuOpen ? "menu_open" : "menu"}>
           <ul>
             <li>
-              <Link to="/"><a href="#">Dashboard</a></Link>
+              <Link className="link" to="/">
+                Dashboard
+              </Link>
             </li>
             <li>
-              <Link to="/profile"><a href="#">Profile</a></Link>
+              <Link className="link" to="/profile">
+                Profile
+              </Link>
             </li>
           </ul>
         </nav>
