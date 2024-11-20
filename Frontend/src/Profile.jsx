@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Profile.css";
 
-export default function Profile() {
+export default function Profile({ email }) {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -9,7 +9,7 @@ export default function Profile() {
   const [msg, setMsg] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:4545/get_user_by_email/user1@example.com", {
+    fetch(`http://localhost:4545/get_user_by_email/${email}`, {
       method: "GET",
     })
       .then((res) => res.json())
