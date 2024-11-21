@@ -40,8 +40,11 @@ export default function Profile({ email }) {
     try {
       const response = await fetch("https://client-account-hub.onrender.com/change_email", {
         method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
-          current_email: email,
+          email: email,
           new_email: form.newEmail,
         }),
       });
