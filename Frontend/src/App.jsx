@@ -6,14 +6,14 @@ import Navbar from "./Navbar";
 import Profile from "./Profile";
 
 function App() {
-  const userEmail = "user5@example.com";
+  const [userEmail, setUserEmail] = useState("user5@example.com");
 
   return (
     <>
       <Navbar />
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/profile" element={<Profile email={userEmail} />} />
+        <Route path="/profile" element={<Profile email={userEmail} setEmail={setUserEmail} />} />
       </Routes>
     </>
   );

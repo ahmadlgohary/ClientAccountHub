@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Profile.css";
 
-export default function Profile({ email }) {
+export default function Profile({ email, setEmail }) {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,7 +27,7 @@ export default function Profile({ email }) {
     };
 
     fetchUser(email);
-  }, [user]);
+  }, [email, user.role]);
 
   const handleInput = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -55,11 +55,13 @@ export default function Profile({ email }) {
 
       const data = await response.json();
       setMsg("Email updated successfully");
+      setEmail(form.newEmail);
     } catch (err) {
       setError("Failed to update email");
     }
     setLoading(false);
-    console.log(form, email);
+    setForm({ newEmail: "", newRole: "" });
+    setMsg("");
   };
 
   const updateRole = async (e) => {
@@ -84,6 +86,7 @@ export default function Profile({ email }) {
 
       const data = await response.json();
       setMsg("Role updated successfully");
+      setUser((prevUser) => ({ ...prevUser, role: form.newRole }));
     } catch (err) {
       setError("Failed to update role");
     }
