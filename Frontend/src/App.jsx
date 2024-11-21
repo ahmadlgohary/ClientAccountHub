@@ -12,7 +12,7 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Dashboard email={userEmail}/>} />
         <Route path="/profile" element={<Profile email={userEmail} setEmail={setUserEmail} />} />
       </Routes>
     </>

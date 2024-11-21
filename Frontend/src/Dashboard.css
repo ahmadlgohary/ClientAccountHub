@@ -1,69 +1,68 @@
 .card {
-    width: 250px;
-    height: 400px;
-    border: 1px solid gray;
-    border-radius: 10px;
-    margin: 0px 80px 0px 20px;
+  width: 250px;
+  height: 400px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  margin: 0px 80px 0px 20px;
 }
 
 .transactionCard {
-    width: 100%;
-    height: 200px;
-    border: 1px solid gray;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    padding: 10px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid gray;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
 }
 
 .bottomCard {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .tableHeader th {
-    padding: 20px;
+  padding: 20px;
 }
 
 .pointBalance {
-    font-size: 60px;
+  font-size: 60px;
 }
 
 h1 {
-    margin-top: 60px;
-    margin-bottom: 40px;
+  margin-top: 60px;
+  margin-bottom: 40px;
 }
 
 /* Tablet */
 @media (max-width: 768px) {
-    .transactionCard {
-        height: 600px;
-        width: 80%;
-        text-align: center;
-    }
+  .transactionCard {
+    height: 600px;
+    width: 80%;
+    text-align: center;
+  }
 
-    .tableHeader {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 0;
-    }
+  .tableHeader {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+  }
 
-    .bottomCard {
-        display: block;
-    }
+  .bottomCard {
+    display: block;
+  }
 
-    .bottomCard .card {
-        margin-bottom: 20px;
-    }
+  .bottomCard .card {
+    margin-bottom: 20px;
+  }
 
-
-    .tableHeader th {
-        display: block;
-    }
+  .tableHeader th {
+    display: block;
+  }
 }
 
 /* Mobile */
 @media (max-width: 480px) {
-    .transactionCard {
-        width: 50%;
-    }
+  .transactionCard {
+    width: 50%;
+  }
 }
