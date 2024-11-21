@@ -9,27 +9,84 @@ export default function Profile({ email }) {
   const [msg, setMsg] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:4545/get_user_by_email/${email}`, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((data) => (data.user ? setUser(data.user) : setError("User not found")))
-      .catch((err) => setError("Failed to fetch user data"))
-      .finally(() => setLoading(false));
+    const fetchUser = async () => {
+      const response = await fetch(
+        `https://client-account-hub.onrender.com/get_user_by_email/${email}`,
+        {
+          method: "GET",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch user data");
+      }
+
+      const data = await response.json();
+      setUser(data.user);
+      setLoading(false);
+    };
+
+    fetchUser(email);
   }, [user]);
 
   const handleInput = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const updateEmail = (e) => {
+  const updateEmail = async (e) => {
     e.preventDefault();
-    //do something
+    setLoading(true);
+
+    try {
+      const response = await fetch("https://client-account-hub.onrender.com/change_email", {
+        method: "PUT",
+        body: JSON.stringify({
+          current_email: email,
+          new_email: form.newEmail,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update email");
+      }
+
+      const data = await response.json();
+      setMsg("Email updated successfully");
+    } catch (err) {
+      setError("Failed to update email");
+    }
+    setLoading(false);
+    console.log(form, email);
   };
 
-  const updateRole = (e) => {
+  const updateRole = async (e) => {
     e.preventDefault();
-    //do something
+    setLoading(true);
+
+    try {
+      const response = await fetch("https://client-account-hub.onrender.com/change_role", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          role: form.newRole,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update role");
+      }
+
+      const data = await response.json();
+      setMsg("Role updated successfully");
+    } catch (err) {
+      setError("Failed to update role");
+    }
+    setLoading(false);
+    setForm({ newEmail: "", newRole: "" });
+    setMsg("");
   };
 
   if (loading) {
