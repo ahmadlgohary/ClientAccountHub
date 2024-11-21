@@ -47,7 +47,7 @@ app.post("/add_user", async(request,response)=>{
         await user_data.save()
 
         // respond with the new user email
-        response.status(200).json({message:"User created successfully}",user:user_data.email});
+        response.status(200).json({message:"User created successfully",user:user_data.email});
     
     }catch(err){
         console.error(err);
@@ -57,6 +57,20 @@ app.post("/add_user", async(request,response)=>{
 
 
 // READ ENDPOINT
+
+
+// Get All Users
+app.get("/get_all_users", async (request, response)=>{
+    try{
+        user_data = await user_model.find()
+        response.status(200).json({message: "Successfully Found all User Data", user: user_data});
+    }
+    catch(err){
+        console.error("Error fetching users:", err);
+        response.status(500).json({error: "Failed to fetch users" });
+    }
+})
+
 
 // Get user by email
 app.get("/get_user_by_email/:email", async (request, response) => {

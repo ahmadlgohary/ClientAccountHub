@@ -195,9 +195,15 @@
 			<tr>
 				<td><code>GET /get_user_by_email/:email</code></td>
 				<td><strong>Params:</strong> <code>email</code> <br> Retrieves the user by their email address.</td>
-				<td><strong>Success (200):</strong> <code>{ ...user data... }</code> <br> <strong>Error (400):</strong>
+				<td><strong>Success (200):</strong> <code>{"message":"Successfully Found User", "user": ...user data... }</code> <br> <strong>Error (400):</strong>
 					<code>{ &quot;error&quot;: &quot;User not found&quot; }</code> <br> <strong>Error (500):</strong>
 					<code>{ &quot;error&quot;: &quot;Failed to fetch user&quot; }</code></td>
+			</tr>
+			<tr>
+				<td><code>GET /get_all_users</code></td>
+				<td>Retrieves all user data in the database</td>
+				<td><strong>Success (200):</strong> <code>{"message":"Successfully Found User", "user": ...user data... }</code> <br> <strong>Error (500):</strong>
+					<code>{ &quot;error&quot;: &quot;Failed to fetch users&quot; }</code></td>
 			</tr>
 			<tr>
 				<td><code>POST /add_user/:email</code></td>
