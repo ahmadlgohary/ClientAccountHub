@@ -49,6 +49,32 @@ export default function Dashboard({ email }) {
     );
   };
 
+  const renderTransactionsSmall = () => {
+    const transactions = Object.entries(user.transaction_history || {});
+    return transactions.length > 0 ? (
+      transactions.map(([transactionId, transaction]) => (
+        <div className="transactionGrid" key={transactionId}>
+          <div className="transactionHeader">TransactionID</div>
+          <div>{transactionId}</div>
+          <div className="transactionHeader">Type</div>
+          <div>{transaction.transaction_type}</div>
+          <div className="transactionHeader">Date</div>
+          <div>{new Date(transaction.transaction_date).toISOString().split("T")[0]}</div>
+          <div className="transactionHeader">Cost</div>
+          <div>{transaction.transaction_cost}</div>
+          <div className="transactionHeader">Product Name</div>
+          <div>{transaction.productName}</div>
+          <div className="transactionHeader">Points Change</div>
+          <div>{transaction.points_change}</div>
+          <div className="transactionHeader">Description</div>
+          <div>{transaction.description}</div>
+        </div>
+      ))
+    ) : (
+      <div>No transactions found</div>
+    );
+  };
+
   return (
     <>
       <h1>Account Dashboard</h1>
@@ -57,7 +83,7 @@ export default function Dashboard({ email }) {
           <h2>Point Balance</h2>
           <h3 className="pointBalance">{user.points_balance || 0}</h3>
         </div>
-        <div className="transactionCard">
+        <div className="transactionCard large">
           <h2>Transaction History</h2>
           <table>
             <thead className="tableHeader">
@@ -73,6 +99,10 @@ export default function Dashboard({ email }) {
             </thead>
             <tbody>{renderTransactions()}</tbody>
           </table>
+        </div>
+        <div className="transactionCard small">
+          <h2>Transaction History</h2>
+          {renderTransactionsSmall()}
         </div>
         <div className="bottomCard">
           <div className="card activity">

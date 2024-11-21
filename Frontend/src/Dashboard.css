@@ -3,7 +3,24 @@
   height: 400px;
   border: 1px solid gray;
   border-radius: 10px;
-  margin: 0px 80px 0px 20px;
+}
+
+.transactionGrid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  border: 1px solid gray;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.transactionGrid .transactionHeader {
+  font-weight: bold;
+}
+
+.transactionGrid > div {
+  border-bottom: 1px solid gray;
+  text-align: left;
 }
 
 .transactionCard {
@@ -13,6 +30,12 @@
   border-radius: 10px;
   margin-bottom: 20px;
   padding: 10px;
+}
+
+.transactionCard.small {
+  width: 100%;
+  display: none;
+  padding: 5px;
 }
 
 .points {
@@ -69,6 +92,18 @@ h1 {
     text-align: center;
   }
 
+  .transactionCard.large {
+    display: none;
+  }
+
+  .activity.card {
+    margin: 0 auto;
+  }
+
+  .transactionCard.small {
+    display: grid;
+  }
+
   .tableHeader {
     display: flex;
     flex-wrap: wrap;
@@ -92,5 +127,10 @@ h1 {
 @media (max-width: 480px) {
   .transactionCard {
     width: 50%;
+  }
+
+  .activityItem {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 }
