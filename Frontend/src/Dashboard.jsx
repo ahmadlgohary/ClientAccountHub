@@ -4,6 +4,8 @@ import "./Dashboard.css";
 
 export default function Dashboard({ email }) {
   const [user, setUser] = useState({});
+  const [transactions, setTransactions] = useState([]);
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -22,7 +24,22 @@ export default function Dashboard({ email }) {
       setUser(data.user);
     };
 
+    const fetchTransactions = async () => {
+      const response = await fetch(
+        `https://client-account-hub.onrender.com/get_transactions_by_email/${email}`,
+        { method: "GET" }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch transaction data");
+      }
+
+      const data = await response.json();
+      setTransactions(data.transactions);
+    };
+
     fetchUser(email);
+    fetchTransactions();
   }, [email]);
 
   return (
@@ -44,7 +61,24 @@ export default function Dashboard({ email }) {
                 </tr>
               </div>
             </thead>
-            <tbody></tbody>
+            <tbody>
+              {transactions.length > 0 ? (
+                transactions.map((transaction, index) => (
+                  <tr key={index}>
+                    <td>{transaction.id}</td>
+                    <td>{transaction.type}</td>
+                    <td>{new Date(transaction.date).toLocaleDateString()}</td>
+                    <td>{transaction.cost}</td>
+                    <td>{transaction.points_change}</td>
+                    <td>{transaction.description}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6">No transactions found</td>
+                </tr>
+              )}
+            </tbody>
           </table>
         </div>
         <div className="bottomCard">
