@@ -268,118 +268,122 @@ export default function Profile({ email, setEmail }) {
           </div>
         </div>
         {msg && <p className="message">{msg}</p>}
-        <div className="form-group">
-          <h2>Add Transaction</h2>
-          <div className="transaction-grid">
-            <div className="transactionHeader">Transaction ID</div>
-            <div>{newTransaction.transaction_id}</div>
+        {user.role === "admin" ? (
+          <>
+            <div className="form-group">
+              <h2>Add Transaction</h2>
+              <div className="transaction-grid">
+                <div className="transactionHeader">Transaction ID</div>
+                <div>{newTransaction.transaction_id}</div>
 
-            <div className="transactionHeader">Type</div>
-            <input
-              type="text"
-              name="transaction_type"
-              value={newTransaction.transaction_type}
-              onChange={handleTransactionInput}
-              className="input-field"
-              placeholder="Enter the transaction type"
-            />
+                <div className="transactionHeader">Type</div>
+                <input
+                  type="text"
+                  name="transaction_type"
+                  value={newTransaction.transaction_type}
+                  onChange={handleTransactionInput}
+                  className="input-field"
+                  placeholder="Enter the transaction type"
+                />
 
-            <div className="transactionHeader">Date</div>
-            <input
-              type="date"
-              name="transaction_date"
-              value={newTransaction.transaction_date}
-              onChange={handleTransactionInput}
-              className="input-field"
-              placeholder="Enter the date"
-            />
+                <div className="transactionHeader">Date</div>
+                <input
+                  type="date"
+                  name="transaction_date"
+                  value={newTransaction.transaction_date}
+                  onChange={handleTransactionInput}
+                  className="input-field"
+                  placeholder="Enter the date"
+                />
 
-            <div className="transactionHeader">Cost</div>
-            <input
-              type="number"
-              name="transaction_cost"
-              value={newTransaction.transaction_cost}
-              onChange={handleTransactionInput}
-              className="input-field"
-            />
+                <div className="transactionHeader">Cost</div>
+                <input
+                  type="number"
+                  name="transaction_cost"
+                  value={newTransaction.transaction_cost}
+                  onChange={handleTransactionInput}
+                  className="input-field"
+                />
 
-            <div className="transactionHeader">Product Name</div>
-            <input
-              type="text"
-              name="productName"
-              value={newTransaction.productName}
-              onChange={handleTransactionInput}
-              className="input-field"
-              placeholder="Enter the product name"
-            />
+                <div className="transactionHeader">Product Name</div>
+                <input
+                  type="text"
+                  name="productName"
+                  value={newTransaction.productName}
+                  onChange={handleTransactionInput}
+                  className="input-field"
+                  placeholder="Enter the product name"
+                />
 
-            <div className="transactionHeader">Points Change</div>
-            <input
-              type="number"
-              name="points_change"
-              value={newTransaction.points_change}
-              onChange={handleTransactionInput}
-              className="input-field"
-            />
+                <div className="transactionHeader">Points Change</div>
+                <input
+                  type="number"
+                  name="points_change"
+                  value={newTransaction.points_change}
+                  onChange={handleTransactionInput}
+                  className="input-field"
+                />
 
-            <div className="transactionHeader">Description</div>
-            <textarea
-              name="description"
-              value={newTransaction.description}
-              onChange={handleTransactionInput}
-              className="input-field input-description"
-              rows="4"
-              cols="50"
-              placeholder="Enter the description"
-            ></textarea>
+                <div className="transactionHeader">Description</div>
+                <textarea
+                  name="description"
+                  value={newTransaction.description}
+                  onChange={handleTransactionInput}
+                  className="input-field input-description"
+                  rows="4"
+                  cols="50"
+                  placeholder="Enter the description"
+                ></textarea>
 
-            <div className="button-group">
-              <button onClick={updateTransaction} className="confirm-button">
-                Confirm
-              </button>
+                <div className="button-group">
+                  <button onClick={updateTransaction} className="confirm-button">
+                    Confirm
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="form-group">
-          <h2>Add Activity Log</h2>
-          <div className="transaction-grid">
-            <div className="transactionHeader">Type</div>
-            <input
-              type="text"
-              name="activity_type"
-              value={newActivityLog.activity_type}
-              onChange={handleActivityInput}
-              className="input-field"
-              placeholder="Enter the activity type"
-            />
+            <div className="form-group">
+              <h2>Add Activity Log</h2>
+              <div className="transaction-grid">
+                <div className="transactionHeader">Type</div>
+                <input
+                  type="text"
+                  name="activity_type"
+                  value={newActivityLog.activity_type}
+                  onChange={handleActivityInput}
+                  className="input-field"
+                  placeholder="Enter the activity type"
+                />
 
-            <div className="transactionHeader">Field</div>
-            <input
-              type="text"
-              name="activity_field"
-              value={newActivityLog.activity_field}
-              onChange={handleActivityInput}
-              className="input-field"
-              placeholder="Enter the activity field"
-            />
+                <div className="transactionHeader">Field</div>
+                <input
+                  type="text"
+                  name="activity_field"
+                  value={newActivityLog.activity_field}
+                  onChange={handleActivityInput}
+                  className="input-field"
+                  placeholder="Enter the activity field"
+                />
 
-            <div className="transactionHeader">Date</div>
-            <input
-              type="date"
-              name="activity_date"
-              value={newActivityLog.activity_date}
-              onChange={handleActivityInput}
-              className="input-field"
-              placeholder="Enter the date"
-            />
+                <div className="transactionHeader">Date</div>
+                <input
+                  type="date"
+                  name="activity_date"
+                  value={newActivityLog.activity_date}
+                  onChange={handleActivityInput}
+                  className="input-field"
+                  placeholder="Enter the date"
+                />
 
-            <div className="button-group">
-              <button onClick={updateActivity} className="confirm-button">
-                Confirm
-              </button>
+                <div className="button-group">
+                  <button onClick={updateActivity} className="confirm-button">
+                    Confirm
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </>
+        ) : null}
       </div>
     </>
   );
