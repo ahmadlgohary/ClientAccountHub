@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import "./Dashboard.css";
 
 export default function Dashboard({ email }) {
+  //state variables
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // fetch user data
     const fetchUser = async () => {
       const response = await fetch(
         `https://client-account-hub.onrender.com/get_user_by_email/${email}`,
@@ -26,8 +28,10 @@ export default function Dashboard({ email }) {
     fetchUser(email);
   }, [email]);
 
+  // loading screen
   if (loading) return <p>Loading...</p>;
 
+  //render transactions for large screen
   const renderTransactions = () => {
     const transactions = Object.entries(user.transaction_history || {});
     return transactions.length > 0 ? (
@@ -49,6 +53,7 @@ export default function Dashboard({ email }) {
     );
   };
 
+  //render transactions for small screen
   const renderTransactionsSmall = () => {
     const transactions = Object.entries(user.transaction_history || {});
     return transactions.length > 0 ? (
