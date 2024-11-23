@@ -85,6 +85,73 @@
   margin-bottom: 10px;
 }
 
+.form-group .select-role.transaction-select {
+  text-align: center;
+}
+
+.transaction-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  border: 1px solid gray;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  color: #555;
+  row-gap: 10px;
+}
+
+.profile .transaction-grid input.input-field {
+  padding: 2px;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid gray;
+  margin: 0;
+}
+
+.profile .transaction-grid .input-description::placeholder {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* .transaction-grid button {
+  margin-top: 10px;
+  border: 0;
+} */
+
+.transaction-grid button.confirm-button {
+  background-color: green;
+  border: green;
+  grid-column-start: 2;
+  color: white;
+  border: 0;
+}
+
+.transaction-grid button.confirm-button:hover {
+  background-color: rgb(1, 101, 1);
+  grid-column-start: 2;
+  color: white;
+  border: 0;
+}
+
+.transaction-grid .transactionHeader {
+  font-weight: bold;
+}
+
+div.button-group {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  border-bottom: 0;
+  padding: 0.5rem;
+}
+
+.transaction-grid > div {
+  border-bottom: 1px solid gray;
+  text-align: left;
+}
+
 .profile button {
   background-color: #0066cc;
   color: white;
