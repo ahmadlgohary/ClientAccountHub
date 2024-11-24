@@ -3,13 +3,15 @@ import "./Profile.css";
 
 export default function Profile({ email, setEmail }) {
   //state variables
-  const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [form, setForm] = useState({ newEmail: "", newRole: "" });
-  const [msg, setMsg] = useState("");
+  const [user, setUser] = useState({}); // user data
+  const [loading, setLoading] = useState(true); // loading state
+  const [error, setError] = useState(null); // error state
+  const [form, setForm] = useState({ newEmail: "", newRole: "" }); // form state for updating email and role
+  const [msg, setMsg] = useState(""); // message state
 
+  //fresh transaction state
   const [newTransaction, setNewTransaction] = useState({
+    //generate a unique transaction ID
     transaction_id: generateHashedID(),
     transaction_type: "",
     transaction_date: "",
@@ -19,22 +21,27 @@ export default function Profile({ email, setEmail }) {
     description: "",
   });
 
+  //fresh activity log state
   const [newActivityLog, setNewActivityLog] = useState({
     activity_type: "",
     activity_field: "",
     activity_date: "",
   });
 
-  // email regex
+  // email regex for a rough email validation
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   // creates a unique transaction ID
   function generateHashedID() {
-    // Generate a random decimal number + current timestamp
+    // Generate a random decimal number and convert it to a string
+    // Gets the current timestamp and convert it to a string
+    // Concatenate the two strings
     return Math.random().toString(36).substring(2, 15) + Date.now().toString(36).substring(2, 15);
   }
 
+  // reruns code when email or role changes
   useEffect(() => {
+    // fetch user data
     const fetchUser = async () => {
       const response = await fetch(
         `https://client-account-hub.onrender.com/get_user_by_email/${email}`,
@@ -43,12 +50,16 @@ export default function Profile({ email, setEmail }) {
         }
       );
 
+      // checks if the request was successful
       if (!response.ok) {
         throw new Error("Failed to fetch user data");
       }
 
+      // gets the data from the response
       const data = await response.json();
+      // sets the user data
       setUser(data.user);
+      // sets the loading state to false
       setLoading(false);
     };
 
@@ -57,23 +68,29 @@ export default function Profile({ email, setEmail }) {
 
   // updates role and email of the user in state
   const handleInput = (e) => {
+    // updates the state
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   // updates email of the user to database
   const updateEmail = async (e) => {
+    // prevents the form from submitting
     e.preventDefault();
 
+    // checks if the email is valid
     if (!regex.test(form.newEmail)) {
       setError("Please provide a valid email address.");
+      // clears the error after 1 second
       setTimeout(() => {
         setError(null);
       }, 1000);
       return;
     }
 
+    // turns on the loading state
     setLoading(true);
 
+    // sends a put request to the API for updating the email
     try {
       const response = await fetch("https://client-account-hub.onrender.com/change_email", {
         method: "PUT",
@@ -92,11 +109,13 @@ export default function Profile({ email, setEmail }) {
 
       const data = await response.json();
       setMsg("Email updated successfully");
+      // updates the user's email
       setEmail(form.newEmail);
     } catch (err) {
       setError("Failed to update email");
     }
     setLoading(false);
+    // clears the form and message
     setForm({ newEmail: "", newRole: "" });
     setMsg("");
   };
@@ -138,6 +157,7 @@ export default function Profile({ email, setEmail }) {
 
   // updates transaction
   const handleTransactionInput = (e) => {
+    // updates the state
     setNewTransaction({
       ...newTransaction,
       [e.target.name]: e.target.value,

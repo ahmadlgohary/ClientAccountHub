@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import Profile from "./Profile";
 
 function App() {
+  // state of the user email
   const [userEmail, setUserEmail] = useState("user1@example.com");
 
   return (

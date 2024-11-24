@@ -4,12 +4,14 @@ import "./Dashboard.css";
 
 export default function Dashboard({ email }) {
   //state variables
-  const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState({}); // user data
+  const [loading, setLoading] = useState(true); // loading state
 
+  // runs code when email changes
   useEffect(() => {
     // fetch user data
     const fetchUser = async () => {
+      // sends a get request to the API
       const response = await fetch(
         `https://client-account-hub.onrender.com/get_user_by_email/${email}`,
         {
@@ -17,28 +19,36 @@ export default function Dashboard({ email }) {
         }
       );
 
+      // checks if the request was successful
       if (!response.ok) {
         throw new Error("Failed to fetch user data");
       }
 
+      // gets the data from the response
       const data = await response.json();
+      // sets the user data
       setUser(data.user);
+      // sets the loading state to false
       setLoading(false);
     };
     fetchUser(email);
   }, [email]);
 
-  // loading screen
+  // if the loading state is true, return a loading message
   if (loading) return <p>Loading...</p>;
 
   //render transactions for large screen
   const renderTransactions = () => {
+    // gets the transactions from the user
     const transactions = Object.entries(user.transaction_history || {});
+    // checks if there are any transactions
     return transactions.length > 0 ? (
+      // maps through the transactions
       transactions.map(([transactionId, transaction]) => (
         <tr key={transactionId}>
           <td>{transactionId}</td>
           <td>{transaction.transaction_type}</td>
+          {/* formats the date to YYYY-MM-DD */}
           <td>{new Date(transaction.transaction_date).toISOString().split("T")[0]}</td>
           <td>{transaction.transaction_cost}</td>
           <td>{transaction.productName}</td>
@@ -47,6 +57,7 @@ export default function Dashboard({ email }) {
         </tr>
       ))
     ) : (
+      // if there are no transactions, return a message
       <tr>
         <td colSpan="6">No transactions found</td>
       </tr>

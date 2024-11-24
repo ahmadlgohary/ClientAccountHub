@@ -3,8 +3,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
+  // state variables for the hamburger menu to see if it is open
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // function to toggle the menu
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
