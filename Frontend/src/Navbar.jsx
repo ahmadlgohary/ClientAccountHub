@@ -10,6 +10,12 @@ export default function Navbar() {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
+  // function to close the menu
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <>
       <header className="navbar">
@@ -24,12 +30,12 @@ export default function Navbar() {
         <nav className={menuOpen ? "menu_open" : "menu"}>
           <ul>
             <li>
-              <Link className="link" to="/">
+              <Link className="link" to="/" onClick={closeMenu}>
                 Dashboard
               </Link>
             </li>
             <li>
-              <Link className="link" to="/profile">
+              <Link className="link" to="/profile" onClick={closeMenu}>
                 Profile
               </Link>
             </li>
