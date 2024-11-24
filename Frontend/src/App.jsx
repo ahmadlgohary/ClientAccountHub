@@ -4,6 +4,7 @@ import Dashboard from "./Dashboard";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./Navbar";
 import Profile from "./Profile";
+import Ticket from "./Ticket";
 
 function App() {
   // state of the user email
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard email={userEmail} />} />
         <Route path="/profile" element={<Profile email={userEmail} setEmail={setUserEmail} />} />
+        <Route path="/ticket" element={<Ticket />} />
       </Routes>
     </>
   );

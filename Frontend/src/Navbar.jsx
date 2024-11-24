@@ -39,6 +39,11 @@ export default function Navbar() {
                 Profile
               </Link>
             </li>
+            <li>
+              <Link className="link" to="/ticket" onClick={closeMenu}>
+                Ticket
+              </Link>
+            </li>
           </ul>
         </nav>
       </header>
