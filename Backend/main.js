@@ -216,7 +216,7 @@ app.put("/update_transactions", async (request, response) => {
             transaction_date: request.body.transaction_date,
             transaction_cost: request.body.transaction_cost,
             productName: request.body.productName,
-            points_change: request.body.points_change,
+            points_change: request['body']['points_change'],
             description: request.body.description || "",
         };
 
@@ -228,7 +228,7 @@ app.put("/update_transactions", async (request, response) => {
         // update or add the transaction in the user's transaction history
         user_data.transaction_history.set(transaction_id, transaction_data);
 
-        user_data.points_balance += request.body.points_change
+        user_data.points_balance += request['body']['points_change']
 
         // save the changes to the user document
         await user_data.save();
