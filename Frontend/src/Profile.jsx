@@ -8,6 +8,7 @@ export default function Profile({ email, setEmail }) {
   const [error, setError] = useState(null); // error state
   const [form, setForm] = useState({ newEmail: "", newRole: "" }); // form state for updating email and role
   const [msg, setMsg] = useState(""); // message state
+  const [rewards, setRewards] = useState([]); // rewards data
 
   //fresh transaction state
   const [newTransaction, setNewTransaction] = useState({
@@ -39,6 +40,26 @@ export default function Profile({ email, setEmail }) {
     return Math.random().toString(36).substring(2, 15) + Date.now().toString(36).substring(2, 15);
   }
 
+  // fetch rewards data for user
+  const fetchRewards = async () => {
+    //turns on the loading state
+    setLoading(true);
+    //fetches the rewards
+    try {
+      const response = await fetch(`http://192.18.153.58:3000/api/analytics/rewards/${email}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch rewards");
+      }
+      const data = await response.json();
+      setRewards(data.data);
+    } catch (err) {
+      setTimeout(() => {
+        setError(null);
+      }, 1000);
+    }
+    setLoading(false);
+  };
+
   // reruns code when email or role changes
   useEffect(() => {
     // fetch user data
@@ -64,6 +85,7 @@ export default function Profile({ email, setEmail }) {
     };
 
     fetchUser(email);
+    fetchRewards();
   }, [email, user.role]);
 
   // updates role and email of the user in state
@@ -233,6 +255,9 @@ export default function Profile({ email, setEmail }) {
       setLoading(false);
     } catch (err) {
       setError("Failed to update activity log");
+      setTimeout(() => {
+        setError(null);
+      }, 1000);
     }
     setLoading(false);
   };
@@ -288,6 +313,22 @@ export default function Profile({ email, setEmail }) {
           </div>
         </div>
         {msg && <p className="message">{msg}</p>}
+        <div className="card activity rewards">
+          <h2>Your Rewards</h2>
+          <ul className="activityList rewardsList">
+            {rewards && rewards.length > 0 ? (
+              rewards.map((reward, index) => (
+                <li key={index} className="activityItem rewards">
+                  <p>{reward.description}</p>
+                  <p>{reward.points}</p>
+                  <p>{new Date(reward.date).toISOString().split("T")[0]}</p>
+                </li>
+              ))
+            ) : (
+              <li>No Popular Rewards found</li>
+            )}
+          </ul>
+        </div>
         {user.role === "admin" ? (
           <>
             <div className="form-group">

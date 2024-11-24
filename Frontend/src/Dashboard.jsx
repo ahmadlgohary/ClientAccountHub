@@ -6,6 +6,27 @@ export default function Dashboard({ email }) {
   //state variables
   const [user, setUser] = useState({}); // user data
   const [loading, setLoading] = useState(true); // loading state
+  const [popularRewards, setPopularRewards] = useState([]); // rewards data
+
+  //fetch rewards data from another groups API
+  const fetchPopularRewards = async () => {
+    //turns on the loading state
+    setLoading(true);
+    //fetches the rewards
+    try {
+      const response = await fetch("http://192.18.153.58:3000/api/analytics/popular-rewards");
+      if (!response.ok) {
+        throw new Error("Failed to fetch rewards");
+      }
+      const data = await response.json();
+      setPopularRewards(data.data);
+    } catch (err) {
+      setTimeout(() => {
+        setError(null);
+      }, 1000);
+    }
+    setLoading(false);
+  };
 
   // runs code when email changes
   useEffect(() => {
@@ -32,6 +53,8 @@ export default function Dashboard({ email }) {
       setLoading(false);
     };
     fetchUser(email);
+    fetchPopularRewards();
+    console.log(popularRewards);
   }, [email]);
 
   // if the loading state is true, return a loading message
@@ -137,6 +160,23 @@ export default function Dashboard({ email }) {
               )}
             </ul>
           </div>
+        </div>
+        <div className="card activity rewards">
+          <h2>Popular Rewards</h2>
+          <ul className="activityList rewardsList">
+            {popularRewards && Object.keys(popularRewards).length > 0 ? (
+              Object.entries(popularRewards)
+                .sort((a, b) => b[1] - a[1]) // sort by count
+                .map(([reward, count], index) => (
+                  <li key={index} className="activityItem rewards">
+                    <p>Reward: {reward}</p>
+                    <p>Count: {count}</p>
+                  </li>
+                ))
+            ) : (
+              <li>No Popular Rewards found</li>
+            )}
+          </ul>
         </div>
       </div>
     </>
