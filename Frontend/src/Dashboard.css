@@ -140,11 +140,15 @@ h1 {
 /* Mobile */
 @media (max-width: 480px) {
   .transactionCard {
-    width: 50%;
+    /* width: 50%; */
   }
 
   .activityItem {
     grid-template-columns: 1fr;
     gap: 10px;
+  }
+
+  .card {
+    height: auto;
   }
 }
