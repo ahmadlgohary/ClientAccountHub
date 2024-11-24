@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Dashboard from "./Dashboard";
 import { Routes, Route } from "react-router-dom";
@@ -16,10 +16,18 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard email={userEmail} />} />
         <Route path="/profile" element={<Profile email={userEmail} setEmail={setUserEmail} />} />
-        <Route path="/ticket" element={<Ticket />} />
+        <Route path="/ticket" element={<TicketRedirect />} />
       </Routes>
     </>
   );
+}
+
+function TicketRedirect() {
+  useEffect(() => {
+    window.location.replace("localhost:3000");
+  }, []);
+
+  return null;
 }
 
 export default App;
