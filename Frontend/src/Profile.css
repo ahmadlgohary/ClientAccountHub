@@ -71,6 +71,7 @@
 
 .profile .activityItem.rewards {
   grid-template-columns: 1fr 1fr 1fr;
+  color: #333;
 }
 
 .form-group input:focus {
